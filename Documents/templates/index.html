@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 매수 추천</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <!-- 우측 상단 미국 성조기와 문구 -->
+        <div class="usa-flag">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="usa-flag-img">
+            <p class="usa-flag-text">MAKE AMERICA GREAT AGAIN</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-panel">
+            <h2>경제 지표</h2>
+            <ul>
+                <li><strong>현재 미국 기준금리:</strong> {{ economic_indicators['interest_rate_current'] }}%</li>
+                <li><strong>직전 미국 기준금리:</strong> {{ economic_indicators['interest_rate_previous'] }}%</li>
+                <li><strong>현재 CPI:</strong> {{ economic_indicators['cpi_current'] }}%</li>
+                <li><strong>ISM 제조업 지수:</strong> {{ economic_indicators['ism_index'] }}</li>
+                <li><strong>GDP 성장률:</strong> {{ economic_indicators['gdp_growth'] }}%</li>
+                <li><strong>현재 미국과 일본 금리 차이:</strong> {{ economic_indicators['interest_rate_diff_current'] }}%</li>
+                <li><strong>직전 미국과 일본 금리 차이:</strong> {{ economic_indicators['interest_rate_diff_previous'] }}%</li>
+            </ul>
+        </div>
+
+        <div class="right-panel">
+            <h1>주식 매수 추천 계산기</h1>
+            
+            <form method="POST">
+                <label for="ticker">티커:</label>
+                <input type="text" id="ticker" name="ticker" value="{{ ticker if ticker else '' }}" required>
+
+                <button type="submit">추천 점수 계산</button>
+            </form>
+
+            {% if ticker %}
+                <div class="result">
+                    <h2>추천 결과</h2>
+                    
+                    </div>
+                    <p><strong>티커:</strong> {{ ticker }}</p>
+                    <p><strong>주식 이름:</strong> {{ name }}</p>  <!-- 주식 풀네임 추가 -->
+                    <p><strong>섹터:</strong> {{ sector }}</p>
+                    <p><strong>산업:</strong> {{ industry }}</p>
+                    <p><strong>추천 점수:</strong> {{ score }}%</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
